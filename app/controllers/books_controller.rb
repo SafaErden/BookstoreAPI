@@ -8,7 +8,7 @@ class BooksController < ApplicationController
     end
 
     def show
-        render json: @book.to_json
+        render json: @book
     end
 
     def new
@@ -21,8 +21,7 @@ class BooksController < ApplicationController
       def create
         @book = Book.new(book_params)
         if @book.save
-          @books=set_books
-          render json: @books.to_json, status: :created
+          render json: @book, status: :created
         else
           render json: @book.errors, status: :unprocessable_entity
         end
