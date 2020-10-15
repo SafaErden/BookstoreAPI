@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
     before_action :set_book, only: [:show, :edit, :update, :destroy]
     before_action :set_books, only: [:index]
-    before_action :set_default_format
+    skip_before_action :verify_authenticity_token
 
     def index 
       render json: @books
@@ -56,12 +56,8 @@ class BooksController < ApplicationController
     def set_books
         @books = Book.all
     end
-
-    def set_default_format
-        request.format = :json
-    end
     
     def book_params
-        params.require().permit(:title, :category)
+        params.permit(:title, :category, :book)
     end
 end
