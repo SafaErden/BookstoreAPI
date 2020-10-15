@@ -20,13 +20,10 @@ class BooksController < ApplicationController
       
       def create
         @book = Book.new(book_params)
-    
-        respond_to do |format|
-          if @book.save
-            format.json { render :show, status: :created, location: @book }
-          else
-            format.json { render json: @book.errors, status: :unprocessable_entity }
-          end
+        if @book.save
+          render json: @book.to_json, status: :created
+        else
+          render json: @book.errors, status: :unprocessable_entity
         end
       end
       
@@ -58,6 +55,6 @@ class BooksController < ApplicationController
     end
     
     def book_params
-        params.permit(:title, :category, :book)
+        params.require(:book).permit(:title, :category)
     end
 end
