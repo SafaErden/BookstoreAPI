@@ -21,7 +21,8 @@ class BooksController < ApplicationController
       def create
         @book = Book.new(book_params)
         if @book.save
-          render json: @book.to_json, status: :created
+          @books=set_books
+          render json: @books.to_json, status: :created
         else
           render json: @book.errors, status: :unprocessable_entity
         end
