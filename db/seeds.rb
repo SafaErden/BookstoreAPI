@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-b = Book.create(title: "The first book", category: "Action")
-b = Book.create(title: "The second book", category: "Sci-Fi")
+Book.create(title: "The first book", category: "Action")
+Book.create(title: "The second book", category: "Sci-Fi")
