@@ -38,9 +38,10 @@ class BooksController < ApplicationController
       end
       
       def destroy
-        @book.destroy
-        respond_to do |format|
-          format.json { head :no_content }
+        if @book.destroy
+          render json: {}
+        else
+          render json: @book.errors, status: :unprocessable_entity
         end
       end
 
