@@ -2,6 +2,7 @@ class BooksController < ApplicationController
     before_action :set_book, only: [:show, :edit, :update, :destroy]
     before_action :set_books, only: [:index]
     skip_before_action :verify_authenticity_token
+    before_action :restrict_access
 
     def index 
       render json: @books
@@ -46,6 +47,12 @@ class BooksController < ApplicationController
       end
 
     private 
+
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+        ApiKey.exists?(access_token: token)
+      end
+    end
 
     def set_book
         @book = Book.find(params[:id])
